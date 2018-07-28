@@ -1,0 +1,37 @@
+"""Epsilon Greedy algorithm."""
+
+from greedy import Greedy
+from numpy.random import rand
+import random
+
+
+class Epsilon_greedy(Greedy):
+    """Epsilon Greedy algorithm."""
+
+    def __init__(self, epsilon, arms, N):
+        """Initialization.
+
+        :param epsilon: threshold(float)
+        :param arms: list of Arm
+        :param n: (int) the number of execution
+        :return
+        """
+        super().__init__(arms, N)
+        self.e = epsilon
+
+    def select_arm(self):
+        """Select arm with e_greedy algorthm."""
+        trials = [self.arms[i].trial for i in range(self.K)]
+        if rand() < self.e:
+            return random.choice(list(range(self.K)))
+        else:
+            prob = [self.arms[i].hit / trials[i] for i in range(self.K)]
+            return prob.index(max(prob))
+
+    def __str__(self):
+        """Override str method."""
+        return "<e-Greedy> N={} Arms={} e={}".format(self.N, self.arms, self.e)
+
+    def __repr__(self):
+        """Override repr method."""
+        return "Epsilon_greedy({},{},{})".format(self.e, self.arms, self.N)
