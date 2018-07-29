@@ -21,12 +21,16 @@ class Epsilon_greedy(Greedy):
 
     def select_arm(self):
         """Select arm with e_greedy algorthm."""
-        trials = [self.arms[i].trial for i in range(self.K)]
-        if rand() < self.e:
-            return random.choice(list(range(self.K)))
+        trials = [self.trials[i] for i in range(self.K)]
+
+        if 0 in trials:  # 最初全てのアームを一回ずつ選択する
+            return trials.index(0)
         else:
-            prob = [self.arms[i].hit / trials[i] for i in range(self.K)]
-            return prob.index(max(prob))
+            if rand() < self.e:
+                return random.choice(list(range(self.K)))
+            else:
+                prob = [self.hits[i] / trials[i] for i in range(self.K)]
+                return prob.index(max(prob))
 
     def __str__(self):
         """Override str method."""
