@@ -3,6 +3,7 @@
 from greedy import Greedy
 from numpy.random import rand
 import random
+import math
 
 
 class UCB(Greedy):
@@ -25,8 +26,9 @@ class UCB(Greedy):
         if 0 in trials:  # 最初全てのアームを一回ずつ選択する
             return trials.index(0)
         else:
-            ucbs = [self.hits[i] / trials[i] + math.sqrt(2 * math.log(self.t) / self.trials[i]) + for i in range(self.K)]
-            return ucb.index(max(ucbs))
+            ucbs = [self.hits[i] / trials[i] +
+                    math.sqrt(2 * math.log(self.t) / self.trials[i]) for i in range(self.K)]
+            return ucbs.index(max(ucbs))
 
     def __str__(self):
         """Override str method."""
