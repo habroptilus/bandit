@@ -21,9 +21,8 @@ class UCB(Greedy):
     def select_arm(self):
         """Select arm with UCB algorthm."""
         trials = [self.trials[i] for i in range(self.K)]
-
+        self.t += 1
         if 0 in trials:  # 最初全てのアームを一回ずつ選択する
-            self.t += 1
             return trials.index(0)
         else:
             ucbs = [self.hits[i] / trials[i] + math.sqrt(2 * math.log(self.t) / self.trials[i]) + for i in range(self.K)]
