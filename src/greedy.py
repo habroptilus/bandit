@@ -27,22 +27,25 @@ class Greedy():
             prob = [self.hits[i] / trials[i] for i in range(self.K)]
             return prob.index(max(prob))
 
+    @profile
     def execute(self):
         """Execute this algorithm.
 
         :return df: DataFrame containing arm and reward columns.
         """
         df = pd.DataFrame()
+        arm_num_list = []
+        reward_list = []
         for i in range(self.N):
-            row = pd.DataFrame()
             arm_num = self.select_arm()
             reward = self.arms[arm_num].draw()
             self.trials[arm_num] += 1
             if reward == 1:
                 self.hits[arm_num] += 1
-            row["arm"] = [arm_num]
-            row["reward"] = [reward]
-            df = pd.concat([df, row], ignore_index=True)
+            arm_num_list.append(arm_num)
+            reward_list.append(reward)
+        df["arm"] = arm_num_list
+        df["reward"] = reward_list
         return df
 
     def __str__(self):
@@ -52,3 +55,14 @@ class Greedy():
     def __repr__(self):
         """Override repr method."""
         return "Greedy({},{})".format(self.arms, self.N)
+
+
+if __name__ == "__main__":
+    from arm import BernoulliArm
+    # set parameters
+    mus = [0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+    arms = [BernoulliArm(mu) for mu in mus]
+    N = 20
+    alg = Greedy(arms=arms, N=N)
+    df = alg.execute()
+    print(df)
