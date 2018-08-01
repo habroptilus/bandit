@@ -22,15 +22,12 @@ class Epsilon_greedy(Bandit_algorithm):
     def select_arm(self):
         """Select arm with e_greedy algorthm."""
         trials = [self.trials[i] for i in range(self.K)]
-
-        if 0 in trials:  # 最初全てのアームを一回ずつ選択する
-            return trials.index(0)
+        if rand() < self.e:
+            return random.choice(list(range(self.K)))
         else:
-            if rand() < self.e:
-                return random.choice(list(range(self.K)))
-            else:
-                prob = [self.hits[i] / trials[i] for i in range(self.K)]
-                return prob.index(max(prob))
+            prob = [self.hits[i] / trials[i] if trials[i]
+                    != 0 else 0 for i in range(self.K)]
+            return prob.index(max(prob))
 
     def __str__(self):
         """Override str method."""

@@ -27,7 +27,8 @@ class Softmax(Bandit_algorithm):
         if 0 in trials:  # 最初全てのアームを一回ずつ選択する
             return trials.index(0)
         else:
-            mus = [self.hits[i] / trials[i] for i in range(self.K)]
+            mus = [self.hits[i] / trials[i] if trials[i]
+                   != 0 else 0 for i in range(self.K)]
             scores = self._softmax(mus)
             return self._sampling_from_pdf(scores)
 
