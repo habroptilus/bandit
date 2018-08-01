@@ -17,17 +17,16 @@ class UCB(Bandit_algorithm):
         :return
         """
         super().__init__(arms, N)
-        self.t = 0
 
     def select_arm(self):
         """Select arm with UCB algorthm."""
         trials = [self.trials[i] for i in range(self.K)]
-        self.t += 1
+        t = sum(self.trials)
         if 0 in trials:  # 最初全てのアームを一回ずつ選択する
             return trials.index(0)
         else:
             ucbs = [self.hits[i] / trials[i] +
-                    math.sqrt(2 * math.log(self.t) / self.trials[i]) for i in range(self.K)]
+                    math.sqrt(math.log(t) / (2 * self.trials[i])) for i in range(self.K)]
             return ucbs.index(max(ucbs))
 
     def __str__(self):

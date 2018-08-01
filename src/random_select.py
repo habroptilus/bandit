@@ -9,7 +9,7 @@ import numpy as np
 class Random_select(Bandit_algorithm):
     """Random algorithm."""
 
-    def __init__(self, temp, arms, N):
+    def __init__(self, arms, N):
         """Initialization.
 
         :param temp: temperature(float)

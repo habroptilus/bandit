@@ -40,4 +40,10 @@ class Bandit_algorithm():
             reward_list.append(reward)
         df["arm"] = arm_num_list
         df["reward"] = reward_list
+        self._reset()
         return df
+
+    def _reset(self):
+        """Reset algorithm."""
+        self.trials = [0] * self.K
+        self.hits = [0] * self.K
