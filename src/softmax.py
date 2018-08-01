@@ -1,12 +1,12 @@
 """Softmax algorithm."""
 
-from greedy import Greedy
+from bandit import Bandit_algorithm
 from numpy.random import rand
 import random
 import numpy as np
 
 
-class Softmax(Greedy):
+class Softmax(Bandit_algorithm):
     """Softmax algorithm."""
 
     def __init__(self, temp, arms, N):

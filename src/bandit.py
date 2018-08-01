@@ -1,8 +1,8 @@
-"""Greedy algorithm."""
+"""Bandit algorithm."""
 import pandas as pd
 
 
-class Greedy():
+class Bandit_algorithm():
     """Greedy algorithm."""
 
     def __init__(self, arms, N):
@@ -19,15 +19,9 @@ class Greedy():
         self.hits = [0] * self.K
 
     def select_arm(self):
-        """Select arm with greedy algorthm."""
-        trials = [self.trials[i] for i in range(self.K)]
-        if 0 in trials:  # 最初全てのアームを一回ずつ選択する
-            return trials.index(0)
-        else:
-            prob = [self.hits[i] / trials[i] for i in range(self.K)]
-            return prob.index(max(prob))
+        """Select arm."""
+        pass
 
-    @profile
     def execute(self):
         """Execute this algorithm.
 
@@ -47,22 +41,3 @@ class Greedy():
         df["arm"] = arm_num_list
         df["reward"] = reward_list
         return df
-
-    def __str__(self):
-        """Override str method."""
-        return "<Greedy> N={} Arms={}".format(self.N, self.arms)
-
-    def __repr__(self):
-        """Override repr method."""
-        return "Greedy({},{})".format(self.arms, self.N)
-
-
-if __name__ == "__main__":
-    from arm import BernoulliArm
-    # set parameters
-    mus = [0.1, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
-    arms = [BernoulliArm(mu) for mu in mus]
-    N = 20
-    alg = Greedy(arms=arms, N=N)
-    df = alg.execute()
-    print(df)

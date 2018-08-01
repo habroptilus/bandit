@@ -1,11 +1,11 @@
 """Epsilon Greedy algorithm."""
 
-from greedy import Greedy
+from bandit import Bandit_algorithm
 from numpy.random import rand
 import random
 
 
-class Epsilon_greedy(Greedy):
+class Epsilon_greedy(Bandit_algorithm):
     """Epsilon Greedy algorithm."""
 
     def __init__(self, epsilon, arms, N):

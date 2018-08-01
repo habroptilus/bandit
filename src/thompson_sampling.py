@@ -1,11 +1,11 @@
 """Thompson Sampling algorithm."""
 
-from greedy import Greedy
+from bandit import Bandit_algorithm
 from numpy.random import rand, beta
 import random
 
 
-class Thompson_sampling(Greedy):
+class Thompson_sampling(Bandit_algorithm):
     """Thompson Sampling algorithm."""
 
     def select_arm(self):

@@ -1,12 +1,12 @@
 """UCB algorithm."""
 
-from greedy import Greedy
+from bandit import Bandit_algorithm
 from numpy.random import rand
 import random
 import math
 
 
-class UCB(Greedy):
+class UCB(Bandit_algorithm):
     """UCB algorithm."""
 
     def __init__(self, arms, N):
